@@ -1,4 +1,5 @@
 $LOAD_PATH << File.expand_path("../lib", __FILE__)
+require "jruby_mahout/version"
 
 Gem::Specification.new do |s|
   s.name        = "jruby_mahout"
@@ -12,4 +13,5 @@ Gem::Specification.new do |s|
   s.files = Dir["{lib}/**/*"] + ["MIT-LICENSE", "README.md"]
   s.test_files = Dir["spec/**/*"]
 
+  s.add_development_dependency "rspec"
 end
