@@ -57,7 +57,7 @@ module JrubyMahout
           recommender = nil
         end
 
-        return recommender
+        recommender
       rescue java.lang.IllegalArgumentException => e
         return nil
       end
