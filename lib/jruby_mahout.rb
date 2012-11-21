@@ -16,14 +16,18 @@ module JrubyMahout
   end
 
   def self.initialize_recommender(similarity_name, neighborhood_size, recommender_name, is_weighted)
-    recommender_builder = RecommenderBuilder.new(similarity_name,
-                                                 neighborhood_size,
-                                                 recommender_name,
-                                                 is_weighted)
+    RecommenderBuilder.new(similarity_name,
+                           neighborhood_size,
+                           recommender_name,
+                           is_weighted)
   end
 
   def self.build_recommender(recommender_builder, file_path)
-    data_model = DatamodelBuilder.new(file_path)
-    recommender_builder.buildRecommender(data_model)
+    data_model = DatamodelBuilder.new(file_path).file_data_model
+    return recommender_builder.buildRecommender(data_model)
+  end
+
+  def self.recommend(recommender, user_id, number_of_items)
+    recommender.recommend(user_id, number_of_items)
   end
 end

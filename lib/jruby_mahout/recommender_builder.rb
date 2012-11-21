@@ -43,9 +43,7 @@ module JrubyMahout
           similarity = @mahout_similarity.PearsonCorrelationSimilarity.new(data_model, @weighting::WEIGHTED)
         end
 
-        if @neighborhood_size and (["1", "2", "4", "8", "16", "32", "64", "128"].include? @neighborhood_size) and similarity
-          neighborhood = @mahout_neighborhood.NearestNUserNeighborhood.new(Integer(@neighborhood_size), similarity, data_model)
-        end
+        neighborhood = @mahout_neighborhood.NearestNUserNeighborhood.new(Integer(@neighborhood_size), similarity, data_model)
 
         if @recommender_name == "GenericUserBasedRecommender" and neighborhood
           recommender = @mahout_recommender.GenericUserBasedRecommender.new(data_model, neighborhood, similarity)
@@ -59,7 +57,7 @@ module JrubyMahout
 
         recommender
       rescue java.lang.IllegalArgumentException => e
-        return nil
+        return e
       end
     end
   end
