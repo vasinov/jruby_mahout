@@ -16,7 +16,7 @@ describe JrubyMahout do
                                                                false)
 
       JrubyMahout.build_recommender(recommender_builder,
-                                    "/Users/vasinov/dev/jruby_mahout/spec/recommender_data.txt").should
+                                    "/Users/vasinov/dev/jruby_mahout/spec/recommender_data.csv").should
         be_an_instance_of org.apache.mahout.cf.taste.impl.recommender.AbstractRecommender
     end
   end
@@ -29,9 +29,9 @@ describe JrubyMahout do
                                                                false)
 
       recommender = JrubyMahout.build_recommender(recommender_builder,
-                                    "/Users/vasinov/dev/jruby_mahout/spec/recommender_data.txt")
+                                    "/Users/vasinov/dev/jruby_mahout/spec/recommender_data.csv")
 
-      puts "Recomendations: #{JrubyMahout.recommend(recommender, 2, 5)}"
+      puts "Recomendations: #{JrubyMahout.recommend(recommender, 1, 5)}"
     end
   end
 end
