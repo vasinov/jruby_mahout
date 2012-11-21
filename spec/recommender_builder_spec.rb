@@ -23,15 +23,15 @@ describe JrubyMahout do
 
   describe ".recommend" do
     it "should return an array of recommendations" do
-      recommender_builder = JrubyMahout.initialize_recommender("PearsonCorrelationSimilarity",
-                                                               10,
-                                                               "GenericUserBasedRecommender",
+      recommender_builder = JrubyMahout.initialize_recommender("SpearmanCorrelationSimilarity",
+                                                               2,
+                                                               "SlopeOneRecommender",
                                                                false)
 
       recommender = JrubyMahout.build_recommender(recommender_builder,
                                     "/Users/vasinov/dev/jruby_mahout/spec/recommender_data.csv")
 
-      puts "Recomendations: #{JrubyMahout.recommend(recommender, 1, 5)}"
+      puts "Recomendations: #{JrubyMahout.recommend(recommender, 2, 10)}"
     end
   end
 end

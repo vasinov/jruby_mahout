@@ -2,7 +2,7 @@ module JrubyMahout
   class RecommenderBuilder
     # public interface RecommenderBuilder
     # Implementations of this inner interface are simple helper classes which create a Recommender to be evaluated based on the given DataModel.
-    include org.apache.mahout.cf.taste.eval.RecommenderBuilder
+    java_import org.apache.mahout.cf.taste.eval.RecommenderBuilder
 
     def initialize(similarity_name, neighborhood_size, recommender_name, is_weighted)
       @mahout_similarity = org.apache.mahout.cf.taste.impl.similarity

@@ -28,6 +28,15 @@ module JrubyMahout
   end
 
   def self.recommend(recommender, user_id, number_of_items)
-    recommender.recommend(user_id, number_of_items)
+    recommendations_to_hash(recommender.recommend(user_id, number_of_items))
+  end
+
+  def self.recommendations_to_hash(recommendations)
+  recommendations_hash = []
+  recommendations.each do |e|
+    recommendations_hash << { "item_id" => e.getItemID, "value" => e.getValue.round(5) }
+  end
+
+  recommendations_hash
   end
 end
