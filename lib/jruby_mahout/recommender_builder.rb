@@ -15,17 +15,9 @@ module JrubyMahout
       begin
         case @similarity_name
           when "PearsonCorrelationSimilarity"
-            if @is_weighted
-              similarity = PearsonCorrelationSimilarity.new(data_model, Weighting::WEIGHTED)
-            else
-              similarity = PearsonCorrelationSimilarity.new(data_model)
-            end
+            similarity = (@is_weighted) ? PearsonCorrelationSimilarity.new(data_model, Weighting::WEIGHTED) : PearsonCorrelationSimilarity.new(data_model)
           when "EuclideanDistanceSimilarity"
-            if @is_weighted
-              similarity = EuclideanDistanceSimilarity.new(data_model, Weighting::WEIGHTED)
-            else
-              similarity = EuclideanDistanceSimilarity.new(data_model)
-            end
+            similarity = (@is_weighted) ? EuclideanDistanceSimilarity.new(data_model, Weighting::WEIGHTED) : EuclideanDistanceSimilarity.new(data_model)
           when "SpearmanCorrelationSimilarity"
             similarity = SpearmanCorrelationSimilarity.new(data_model)
           when "LogLikelihoodSimilarity"
