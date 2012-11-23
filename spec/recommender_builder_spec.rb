@@ -1,37 +1,41 @@
 require 'spec_helper'
 
 describe JrubyMahout do
-  describe ".initialize_recommender" do
-    it "should return JrubyMahout::RecommenderBuilder" do
-      JrubyMahout.initialize_recommender("PearsonCorrelationSimilarity", 4, "GenericUserBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::RecommenderBuilder
+  describe "Recommender" do
+    describe ".new" do
+      it "should return an instance of JrubyMahout::Recommender" do
+        JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", 5, "GenericUserBasedRecommender", false).should
+        be_an_instance_of JrubyMahout::Recommender
+      end
     end
-  end
 
-  describe ".build_recommender" do
-    it "should return an instance of an AbstractRecommender" do
-      recommender_builder = JrubyMahout.initialize_recommender("TanimotoCoefficientSimilarity",
-                                                               5,
-                                                               "GenericUserBasedRecommender",
-                                                               false)
+    describe "data_model=" do
+      it "should load data model" do
+        recommender = JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", 5, "GenericUserBasedRecommender", false)
+        recommender.data_model = "spec/recommender_data.csv"
 
-      JrubyMahout.build_recommender(recommender_builder,
-                                    "spec/recommender_data.csv").should
-        be_an_instance_of org.apache.mahout.cf.taste.impl.recommender.AbstractRecommender
+        recommender.data_model.should be_an_instance_of org.apache.mahout.cf.taste.impl.model.file.FileDataModel
+      end
     end
-  end
 
-  describe ".recommend" do
-    it "should return an array of recommendations" do
-      recommender_builder = JrubyMahout.initialize_recommender("TanimotoCoefficientSimilarity",
-                                                               5,
-                                                               "GenericUserBasedRecommender",
-                                                               false)
+    describe ".recommend" do
+      it "should return an array" do
+        recommender = JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", 5, "GenericUserBasedRecommender", false)
+        recommender.data_model = "spec/recommender_data.csv"
 
-      recommender = JrubyMahout.build_recommender(recommender_builder,
-                                    "spec/recommender_data.csv")
+        recommender.recommend(1, 10).should be_an_instance_of Array
+      end
+    end
 
-      JrubyMahout.recommend(recommender, 1, 10).should be_an_instance_of Array
+    describe ".evaluate" do
+      it "should return an integer" do
+        recommender = JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", 5, "GenericUserBasedRecommender", false)
+        recommender.data_model = "spec/recommender_data.csv"
+
+        puts "Evaluation: #{recommender.evaluate(0.7, 0.3)}"
+
+        recommender.evaluate(0.7, 0.3).should be_an_instance_of Float
+      end
     end
   end
 end

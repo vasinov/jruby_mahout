@@ -17,3 +17,6 @@ java_import org.apache.mahout.cf.taste.impl.recommender.slopeone.SlopeOneRecomme
 
 # Weighting
 java_import org.apache.mahout.cf.taste.common.Weighting
+
+#Evaluators
+java_import org.apache.mahout.cf.taste.impl.eval.AverageAbsoluteDifferenceRecommenderEvaluator

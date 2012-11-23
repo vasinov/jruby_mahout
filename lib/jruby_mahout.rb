@@ -7,14 +7,9 @@ Dir.glob(File.join(ENV["MAHOUT_DIR"], 'lib/*.jar')).each { |d| require d }
 module JrubyMahout
   require 'jruby_mahout/database_manager'
   require 'jruby_mahout/recommender_builder'
+  require 'jruby_mahout/recommender'
   require 'jruby_mahout/data_model_builder'
   require "jruby_mahout/mahout_imports"
-
-  def self.test
-    database_manager = DatabaseManager.new("postgres")
-    database_manager.load_database
-    puts "machine learning is testing"
-  end
 
   def self.initialize_recommender(similarity_name, neighborhood_size, recommender_name, is_weighted)
     RecommenderBuilder.new(similarity_name,
@@ -33,11 +28,11 @@ module JrubyMahout
   end
 
   def self.recommendations_to_hash(recommendations)
-  recommendations_hash = []
-  recommendations.each do |e|
-    recommendations_hash << { "item_id" => e.getItemID, "value" => e.getValue.round(5) }
-  end
+    recommendations_hash = []
+    recommendations.each do |e|
+      recommendations_hash << { "item_id" => e.getItemID, "value" => e.getValue.round(5) }
+    end
 
-  recommendations_hash
+    recommendations_hash
   end
 end
