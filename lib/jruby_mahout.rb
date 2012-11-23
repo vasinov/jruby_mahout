@@ -4,11 +4,12 @@ require File.join(ENV["MAHOUT_DIR"], 'mahout-integration-0.7.jar')
 require File.join(ENV["MAHOUT_DIR"], 'mahout-math-0.7.jar')
 Dir.glob(File.join(ENV["MAHOUT_DIR"], 'lib/*.jar')).each { |d| require d }
 
-require 'jruby_mahout/database_manager'
-require 'jruby_mahout/recommender_builder'
-require 'jruby_mahout/data_model_builder'
-
 module JrubyMahout
+  require 'jruby_mahout/database_manager'
+  require 'jruby_mahout/recommender_builder'
+  require 'jruby_mahout/data_model_builder'
+  require "jruby_mahout/mahout_imports"
+
   def self.test
     database_manager = DatabaseManager.new("postgres")
     database_manager.load_database
