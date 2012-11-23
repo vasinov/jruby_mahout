@@ -1,0 +1,6 @@
+.bundle/
+.idea/
+.DS_Store
+log/*.log
+pkg/
+.rbenv-version
