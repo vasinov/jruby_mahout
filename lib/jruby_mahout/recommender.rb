@@ -38,6 +38,10 @@ module JrubyMahout
       end
     end
 
+    def similarities
+
+    end
+
     private
     def recommendations_to_array(recommendations)
       recommendations_array = []
