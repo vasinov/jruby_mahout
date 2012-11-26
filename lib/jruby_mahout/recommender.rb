@@ -16,30 +16,29 @@ module JrubyMahout
     end
 
     def data_model=(file_path)
-      @data_model = DatamodelBuilder.new(file_path).file_data_model
+      @data_model = DataModel.new(file_path).file_data_model
       @recommender = @recommender_builder.buildRecommender(@data_model)
     end
 
-    def recommend(user_id, number_of_items)
+    def recommend(user_id, number_of_items, rescorer)
       if @recommender.nil?
         nil
       else
-        recommendations_to_array(@recommender.recommend(user_id, number_of_items))
+        recommendations_to_array(@recommender.recommend(user_id, number_of_items, rescorer))
       end
     end
 
     def evaluate(training_percentage, evaluation_percentage)
-      evaluator = AverageAbsoluteDifferenceRecommenderEvaluator.new()
-
-      if @data_model.nil? or @recommender_builder.nil?
-        mil
-      else
-        Float(evaluator.evaluate(@recommender_builder, nil, @data_model, 0.7, 0.3))
-      end
+      evaluator = Evaluator.new(@data_model, @recommender_builder)
+      evaluator.evaluate(training_percentage, evaluation_percentage)
     end
 
-    def similarities
-
+    def item_similarities(item_id, number_of_items)
+      if @recommender.nil? or @recommender_name == "GenericUserBasedRecommender"
+        nil
+      else
+        @recommender.mostSimilarItems(item_id, amount)
+      end
     end
 
     private
