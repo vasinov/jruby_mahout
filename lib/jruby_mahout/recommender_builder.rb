@@ -1,5 +1,6 @@
 module JrubyMahout
   class RecommenderBuilder
+    attr_accessor :recommender_name, :item_based_allowed
     # public interface RecommenderBuilder
     # Implementations of this inner interface are simple helper classes which create a Recommender to be evaluated based on the given DataModel.
     def initialize(similarity_name, neighborhood_size, recommender_name, is_weighted)
@@ -7,6 +8,7 @@ module JrubyMahout
       @neighborhood_size = neighborhood_size
       @similarity_name = similarity_name
       @recommender_name = recommender_name
+      @item_based_allowed = (@similarity_name == "SpearmanCorrelationSimilarity") ? false : true
     end
 
     # buildRecommender(DataModel dataModel)
@@ -30,13 +32,15 @@ module JrubyMahout
             similarity = nil
         end
 
-        neighborhood = NearestNUserNeighborhood.new(Integer(@neighborhood_size), similarity, data_model)
+        unless @neighborhood_size.nil?
+          neighborhood = NearestNUserNeighborhood.new(Integer(@neighborhood_size), similarity, data_model)
+        end
 
         case @recommender_name
           when "GenericUserBasedRecommender"
             recommender = GenericUserBasedRecommender.new(data_model, neighborhood, similarity)
           when "GenericItemBasedRecommender"
-            recommender = GenericItemBasedRecommender.new(data_model, similarity)
+            recommender = (@item_based_allowed) ? GenericItemBasedRecommender.new(data_model, similarity) : nil
           when "SlopeOneRecommender"
             recommender = SlopeOneRecommender.new(data_model)
           else
