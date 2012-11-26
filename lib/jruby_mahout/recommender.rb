@@ -33,11 +33,35 @@ module JrubyMahout
       evaluator.evaluate(training_percentage, evaluation_percentage)
     end
 
-    def item_similarities(item_id, number_of_items)
+    def similar_items(item_id, number_of_items, rescorer)
+      if @recommender.nil? or @recommender_name == "GenericItemBasedRecommender"
+        nil
+      else
+        @recommender.mostSimilarItems(item_id, amount, rescorer)
+      end
+    end
+
+    def similar_users(user_id, number_of_items, rescorer)
       if @recommender.nil? or @recommender_name == "GenericUserBasedRecommender"
         nil
       else
-        @recommender.mostSimilarItems(item_id, amount)
+        @recommender.mostSimilarUserIDs(user_id, amount, rescorer)
+      end
+    end
+
+    def estimate_preference(user_id, item_id)
+      if @recommender.nil?
+        nil
+      else
+        @recommender.estimatePreference(item_id, amount)
+      end
+    end
+
+    def recommended_because(user_id, item_id, number_of_items)
+      if @recommender.nil? or @recommender_name == "GenericItemBasedRecommender"
+        nil
+      else
+        @recommender.recommendedBecause(user_id, item_id, number_of_items)
       end
     end
 
