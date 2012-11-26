@@ -1,5 +1,5 @@
 module JrubyMahout
-  class DatamodelBuilder
+  class DataModel
     java_import org.apache.mahout.cf.taste.impl.model.file.FileDataModel
     java_import java.io.File
 
