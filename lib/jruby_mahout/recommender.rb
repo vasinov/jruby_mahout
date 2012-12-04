@@ -37,7 +37,7 @@ module JrubyMahout
       if @recommender.nil? or @recommender_name == "GenericItemBasedRecommender"
         nil
       else
-        @recommender.mostSimilarItems(item_id, amount, rescorer)
+        @recommender.mostSimilarItems(item_id, number_of_items, rescorer)
       end
     end
 
@@ -53,7 +53,7 @@ module JrubyMahout
       if @recommender.nil?
         nil
       else
-        @recommender.estimatePreference(item_id, amount)
+        @recommender.estimatePreference(user_id, item_id)
       end
     end
 
