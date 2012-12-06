@@ -1,8 +1,5 @@
 module JrubyMahout
   class DataModel
-    java_import org.apache.mahout.cf.taste.impl.model.file.FileDataModel
-    java_import java.io.File
-
     attr_accessor :data_model
 
     def initialize(data_model_type, params)
@@ -12,10 +9,22 @@ module JrubyMahout
         when "MySQLJDBC"
 
         when "PostgreSQLJDBC"
-
+          data_source = create_postgresql_data_source(params)
+          @data_model = PostgreSQLJDBCDataModel.new(data_source, params[:table_name], "user_id", "item_id", "rating", "created")
         else
           @data_model = nil
       end
+    end
+
+    def create_postgresql_data_source(db_name)
+      data_source = PoolingDataSource.new()
+      data_source.setUser(params[:username])
+      data_source.setPassword(params[:password])
+      data_source.setServerName(params[:host])
+      data_source.setPortNumber(params[:port])
+      data_source.setDatabaseName(params[:db_name])
+
+      data_source
     end
   end
 end

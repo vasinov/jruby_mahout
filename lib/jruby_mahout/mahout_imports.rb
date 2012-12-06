@@ -18,5 +18,15 @@ java_import org.apache.mahout.cf.taste.impl.recommender.slopeone.SlopeOneRecomme
 # Weighting
 java_import org.apache.mahout.cf.taste.common.Weighting
 
-#Evaluators
+# Evaluators
 java_import org.apache.mahout.cf.taste.impl.eval.AverageAbsoluteDifferenceRecommenderEvaluator
+
+# Data Models
+java_import org.apache.mahout.cf.taste.impl.model.jdbc.PostgreSQLJDBCDataModel
+java_import org.apache.mahout.cf.taste.impl.model.file.FileDataModel
+
+# Postgres
+java_import org.postgresql.jdbc2.optional.PoolingDataSource
+
+# Other
+java_import java.io.File
