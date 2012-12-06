@@ -3,14 +3,19 @@ module JrubyMahout
     java_import org.apache.mahout.cf.taste.impl.model.file.FileDataModel
     java_import java.io.File
 
-    attr_accessor :file_data_model
+    attr_accessor :data_model
 
-    def initialize(file_path)
-      @file_data_model = FileDataModel.new(File.new(file_path))
-    end
+    def initialize(data_model_type, params)
+      case data_model_type
+        when "file"
+          @data_model = FileDataModel.new(File.new(params[:file_path]))
+        when "MySQLJDBC"
 
-    def file_data_model=(new_file_path)
-      @file_data_model = FileDataModel.new(File.new(new_file_path))
+        when "PostgreSQLJDBC"
+
+        else
+          @data_model = nil
+      end
     end
   end
 end

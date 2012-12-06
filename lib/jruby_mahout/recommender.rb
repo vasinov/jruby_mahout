@@ -15,8 +15,8 @@ module JrubyMahout
       @recommender = nil
     end
 
-    def data_model=(file_path)
-      @data_model = DataModel.new(file_path).file_data_model
+    def data_model=(data_model)
+      @data_model = data_model
       @recommender = @recommender_builder.buildRecommender(@data_model)
     end
 
