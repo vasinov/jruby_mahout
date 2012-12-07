@@ -71,11 +71,25 @@ describe JrubyMahout::Recommender do
   end
 
   describe "data_model=" do
-    it "should load data model" do
+    it "should load file data model" do
       recommender = JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", 5, "GenericUserBasedRecommender", false)
       recommender.data_model = JrubyMahout::DataModel.new("file", { :file_path => "spec/recommender_data.csv" }).data_model
 
       recommender.data_model.should be_an_instance_of org.apache.mahout.cf.taste.impl.model.file.FileDataModel
+    end
+
+    it "should load PostgreSQLJDBC data model" do
+      recommender = JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", 5, "GenericUserBasedRecommender", false)
+      recommender.data_model = JrubyMahout::DataModel.new("PostgreSQLJDBC", {
+          :host => "localhost",
+          :port => 5432,
+          :db_name => "postgres",
+          :username => "postgres",
+          :password => "postgres",
+          :table_name => "taste_preferences"
+      }).data_model
+
+      recommender.data_model.should be_an_instance_of org.apache.mahout.cf.taste.impl.model.jdbc.PostgreSQLJDBCDataModel
     end
   end
 

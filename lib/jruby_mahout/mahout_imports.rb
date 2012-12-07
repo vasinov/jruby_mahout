@@ -25,8 +25,10 @@ java_import org.apache.mahout.cf.taste.impl.eval.AverageAbsoluteDifferenceRecomm
 java_import org.apache.mahout.cf.taste.impl.model.jdbc.PostgreSQLJDBCDataModel
 java_import org.apache.mahout.cf.taste.impl.model.file.FileDataModel
 
-# Postgres
-java_import org.postgresql.jdbc2.optional.PoolingDataSource
 
-# Other
-java_import java.io.File
+# Postgres
+begin
+  java_import org.postgresql.ds.PGPoolingDataSource
+rescue Exception => e
+  puts e
+end

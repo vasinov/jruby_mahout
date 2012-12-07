@@ -5,7 +5,7 @@ module JrubyMahout
     def initialize(data_model_type, params)
       case data_model_type
         when "file"
-          @data_model = FileDataModel.new(File.new(params[:file_path]))
+          @data_model = FileDataModel.new(java.io.File.new(params[:file_path]))
         when "MySQLJDBC"
 
         when "PostgreSQLJDBC"
@@ -16,8 +16,8 @@ module JrubyMahout
       end
     end
 
-    def create_postgresql_data_source(db_name)
-      data_source = PoolingDataSource.new()
+    def create_postgresql_data_source(params)
+      data_source = PGPoolingDataSource.new()
       data_source.setUser(params[:username])
       data_source.setPassword(params[:password])
       data_source.setServerName(params[:host])
