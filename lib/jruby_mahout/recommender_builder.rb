@@ -1,5 +1,21 @@
 module JrubyMahout
   class RecommenderBuilder
+    java_import org.apache.mahout.cf.taste.eval.RecommenderBuilder
+    java_import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity
+    java_import org.apache.mahout.cf.taste.impl.similarity.EuclideanDistanceSimilarity
+    java_import org.apache.mahout.cf.taste.impl.similarity.SpearmanCorrelationSimilarity
+    java_import org.apache.mahout.cf.taste.impl.similarity.LogLikelihoodSimilarity
+    java_import org.apache.mahout.cf.taste.impl.similarity.TanimotoCoefficientSimilarity
+    java_import org.apache.mahout.cf.taste.impl.similarity.PearsonCorrelationSimilarity
+
+    java_import org.apache.mahout.cf.taste.impl.neighborhood.NearestNUserNeighborhood
+
+    java_import org.apache.mahout.cf.taste.impl.recommender.GenericUserBasedRecommender
+    java_import org.apache.mahout.cf.taste.impl.recommender.GenericItemBasedRecommender
+    java_import org.apache.mahout.cf.taste.impl.recommender.slopeone.SlopeOneRecommender
+
+    java_import org.apache.mahout.cf.taste.common.Weighting
+
     attr_accessor :recommender_name, :item_based_allowed
     # public interface RecommenderBuilder
     # Implementations of this inner interface are simple helper classes which create a Recommender to be evaluated based on the given DataModel.

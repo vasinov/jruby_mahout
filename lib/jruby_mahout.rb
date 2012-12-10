@@ -4,5 +4,11 @@ module JrubyMahout
   require File.join(ENV["MAHOUT_DIR"], 'mahout-integration-0.7.jar')
   require File.join(ENV["MAHOUT_DIR"], 'mahout-math-0.7.jar')
   Dir.glob(File.join(ENV["MAHOUT_DIR"], 'lib/*.jar')).each { |d| require d }
-  Dir['./lib/jruby_mahout/*.rb'].each{ |f| require f }
+
+  require 'jruby_mahout/recommender'
+  require 'jruby_mahout/recommender_builder'
+  require 'jruby_mahout/data_model'
+  require 'jruby_mahout/evaluator'
+  require 'jruby_mahout/postgres_manager'
+  require 'jruby_mahout/mysql_manager'
 end
