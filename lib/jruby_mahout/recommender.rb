@@ -15,26 +15,53 @@ module JrubyMahout
       @recommender = nil
     end
 
-    def data_model=(file_path)
-      @data_model = DatamodelBuilder.new(file_path).file_data_model
+    def data_model=(data_model)
+      @data_model = data_model
       @recommender = @recommender_builder.buildRecommender(@data_model)
     end
 
-    def recommend(user_id, number_of_items)
+    def recommend(user_id, number_of_items, rescorer)
       if @recommender.nil?
         nil
       else
-        recommendations_to_array(@recommender.recommend(user_id, number_of_items))
+        recommendations_to_array(@recommender.recommend(user_id, number_of_items, rescorer))
       end
     end
 
     def evaluate(training_percentage, evaluation_percentage)
-      evaluator = AverageAbsoluteDifferenceRecommenderEvaluator.new()
+      evaluator = Evaluator.new(@data_model, @recommender_builder)
+      evaluator.evaluate(training_percentage, evaluation_percentage)
+    end
 
-      if @data_model.nil? or @recommender_builder.nil?
-        mil
+    def similar_items(item_id, number_of_items, rescorer)
+      if @recommender.nil? or @recommender_name == "GenericItemBasedRecommender"
+        nil
       else
-        Float(evaluator.evaluate(@recommender_builder, nil, @data_model, 0.7, 0.3))
+        @recommender.mostSimilarItems(item_id, number_of_items, rescorer)
+      end
+    end
+
+    def similar_users(user_id, number_of_items, rescorer)
+      if @recommender.nil? or @recommender_name == "GenericUserBasedRecommender"
+        nil
+      else
+        @recommender.mostSimilarUserIDs(user_id, amount, rescorer)
+      end
+    end
+
+    def estimate_preference(user_id, item_id)
+      if @recommender.nil?
+        nil
+      else
+        @recommender.estimatePreference(user_id, item_id)
+      end
+    end
+
+    def recommended_because(user_id, item_id, number_of_items)
+      if @recommender.nil? or @recommender_name == "GenericItemBasedRecommender"
+        nil
+      else
+        @recommender.recommendedBecause(user_id, item_id, number_of_items)
       end
     end
 
