@@ -1,5 +1,13 @@
 module JrubyMahout
   class PostgresManager
+    java_import org.apache.mahout.cf.taste.impl.model.jdbc.PostgreSQLJDBCDataModel
+
+    begin
+      java_import org.postgresql.ds.PGPoolingDataSource
+    rescue Exception => e
+      puts e
+    end
+
     attr_accessor :data_model, :data_source, :statement
 
     def initialize(params)

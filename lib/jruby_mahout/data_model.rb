@@ -1,5 +1,7 @@
 module JrubyMahout
   class DataModel
+    java_import org.apache.mahout.cf.taste.impl.model.file.FileDataModel
+
     attr_accessor :data_model
 
     def initialize(data_model_type, params)

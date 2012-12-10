@@ -1,5 +1,7 @@
 module JrubyMahout
   class Evaluator
+    java_import org.apache.mahout.cf.taste.impl.eval.AverageAbsoluteDifferenceRecommenderEvaluator
+
     def initialize(data_model, recommender_builder)
       @data_model = data_model
       @recommender_builder = recommender_builder

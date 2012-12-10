@@ -4,3 +4,4 @@
 log/*.log
 pkg/
 .rbenv-version
+*.gem
