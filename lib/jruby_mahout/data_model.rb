@@ -6,9 +6,10 @@ module JrubyMahout
       case data_model_type
         when "file"
           @data_model = FileDataModel.new(java.io.File.new(params[:file_path]))
-        when "MySQLJDBC"
-
-        when "PostgreSQLJDBC"
+        when "mysql"
+          # TODO: implement
+          @data_model = nil
+        when "postgres"
           data_source = create_postgresql_data_source(params)
           @data_model = PostgreSQLJDBCDataModel.new(data_source, params[:table_name], "user_id", "item_id", "rating", "created")
         else
