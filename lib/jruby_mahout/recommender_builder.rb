@@ -48,7 +48,7 @@ module JrubyMahout
         end
 
         recommender
-      rescue java.lang.IllegalArgumentException => e
+      rescue Exception => e
         return e
       end
     end
