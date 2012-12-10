@@ -10,22 +10,10 @@ module JrubyMahout
           # TODO: implement
           @data_model = nil
         when "postgres"
-          data_source = create_postgresql_data_source(params)
-          @data_model = PostgreSQLJDBCDataModel.new(data_source, params[:table_name], "user_id", "item_id", "rating", "created")
+          @data_model = PostgresManager.new(params).setup_data_model(params)
         else
           @data_model = nil
       end
-    end
-
-    def create_postgresql_data_source(params)
-      data_source = PGPoolingDataSource.new()
-      data_source.setUser(params[:username])
-      data_source.setPassword(params[:password])
-      data_source.setServerName(params[:host])
-      data_source.setPortNumber(params[:port])
-      data_source.setDatabaseName(params[:db_name])
-
-      data_source
     end
   end
 end

@@ -1,6 +1,6 @@
 module JrubyMahout
   class PostgresManager
-    @statementattr_accessor :data_model, :data_source, :statement
+    attr_accessor :data_model, :data_source, :statement
 
     def initialize(params)
       @data_source = PGPoolingDataSource.new()
