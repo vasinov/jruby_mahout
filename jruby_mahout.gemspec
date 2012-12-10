@@ -7,8 +7,9 @@ Gem::Specification.new do |gem|
   gem.authors     = ["Vasily Vasinov"]
   gem.email       = ["vasinov@me.com"]
   gem.homepage    = "https://github.com/vasinov/jruby_mahout"
-  gem.summary     = "Wrapper for the machine learning Mahout library written in JRuby"
-  gem.description = ""
+  gem.summary     = "Jruby Mahout is a gem that unleashes the power of Apache Mahout in the world of Jruby."
+  gem.description = "Jruby Mahout is a gem that unleashes the power of Apache Mahout in the world of Jruby. Mahout is a superior machine learning library written in Java. It deals with recommendations, clustering and classification machine learning problems at scale. Until now it was difficult to use it in Ruby projects. You'd have to implement Java interfaces in Jruby yourself, which is not quick especially if you just started exploring the world of machine learning."
+  gem.license = "MIT"
 
   gem.files = Dir["{lib}/**/*"] + ["MIT-LICENSE", "README.md"]
   gem.test_files = Dir["spec/**/*"]
