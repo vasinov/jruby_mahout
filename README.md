@@ -25,6 +25,12 @@ And run `bundle install`.
 ## How to Use?
 I am planning to add more examples covering Jruby Mahout use cases to [this repo](https://github.com/vasinov/jruby_mahout-examples) soon.
 
+First off, define `MAHOUT_DIR` environmental variable for Mahout. For example:
+
+```
+export MAHOUT_DIR=/bin/mahout
+```
+
 The easiest way to start working with Jruby Mahout recommendations is to initialize a recommender:
 ```ruby
 require 'jruby_mahout'
