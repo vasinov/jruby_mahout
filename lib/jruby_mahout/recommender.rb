@@ -45,7 +45,7 @@ module JrubyMahout
       if @recommender.nil? or @recommender_name == "GenericUserBasedRecommender"
         nil
       else
-        @recommender.mostSimilarUserIDs(user_id, amount, rescorer)
+        @recommender.mostSimilarUserIDs(user_id, number_of_items, rescorer)
       end
     end
 
