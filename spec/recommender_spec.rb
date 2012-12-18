@@ -3,69 +3,138 @@ require 'spec_helper'
 describe JrubyMahout::Recommender do
   describe ".new" do
     context "with valid arguments" do
-      it "should return an instance of JrubyMahout::Recommender for PearsonCorrelationSimilarity and GenericUserBasedRecommender" do
-        JrubyMahout::Recommender.new("PearsonCorrelationSimilarity", 5, "GenericUserBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
+      context "with NearestNUserNeighborhood" do
+        it "should return an instance of JrubyMahout::Recommender for PearsonCorrelationSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("PearsonCorrelationSimilarity", 5, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for EuclideanDistanceSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("EuclideanDistanceSimilarity", 5, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for SpearmanCorrelationSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("SpearmanCorrelationSimilarity", 5, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for LogLikelihoodSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("LogLikelihoodSimilarity", 5, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for TanimotoCoefficientSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", 5, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for GenericItemSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("GenericItemSimilarity", 5, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for PearsonCorrelationSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("PearsonCorrelationSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for EuclideanDistanceSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("EuclideanDistanceSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for SpearmanCorrelationSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("SpearmanCorrelationSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for LogLikelihoodSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("LogLikelihoodSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for TanimotoCoefficientSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for GenericItemSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("GenericItemSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+  
+        it "should return an instance of JrubyMahout::Recommender for SlopeOneRecommender" do
+          JrubyMahout::Recommender.new(nil, nil, "SlopeOneRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
       end
 
-      it "should return an instance of JrubyMahout::Recommender for EuclideanDistanceSimilarity and GenericUserBasedRecommender" do
-        JrubyMahout::Recommender.new("EuclideanDistanceSimilarity", 5, "GenericUserBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+      context "with ThresholdUserNeighborhood" do
+        it "should return an instance of JrubyMahout::Recommender for PearsonCorrelationSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("PearsonCorrelationSimilarity", 0.7, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for SpearmanCorrelationSimilarity and GenericUserBasedRecommender" do
-        JrubyMahout::Recommender.new("SpearmanCorrelationSimilarity", 5, "GenericUserBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+        it "should return an instance of JrubyMahout::Recommender for EuclideanDistanceSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("EuclideanDistanceSimilarity", 0.7, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for LogLikelihoodSimilarity and GenericUserBasedRecommender" do
-        JrubyMahout::Recommender.new("LogLikelihoodSimilarity", 5, "GenericUserBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+        it "should return an instance of JrubyMahout::Recommender for SpearmanCorrelationSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("SpearmanCorrelationSimilarity", 0.7, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for TanimotoCoefficientSimilarity and GenericUserBasedRecommender" do
-        JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", 5, "GenericUserBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+        it "should return an instance of JrubyMahout::Recommender for LogLikelihoodSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("LogLikelihoodSimilarity", 0.7, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for GenericItemSimilarity and GenericUserBasedRecommender" do
-        JrubyMahout::Recommender.new("GenericItemSimilarity", 5, "GenericUserBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+        it "should return an instance of JrubyMahout::Recommender for TanimotoCoefficientSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", 0.7, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for PearsonCorrelationSimilarity and GenericItemBasedRecommender" do
-        JrubyMahout::Recommender.new("PearsonCorrelationSimilarity", nil, "GenericItemBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+        it "should return an instance of JrubyMahout::Recommender for GenericItemSimilarity and GenericUserBasedRecommender" do
+          JrubyMahout::Recommender.new("GenericItemSimilarity", 0.7, "GenericUserBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for EuclideanDistanceSimilarity and GenericItemBasedRecommender" do
-        JrubyMahout::Recommender.new("EuclideanDistanceSimilarity", nil, "GenericItemBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+        it "should return an instance of JrubyMahout::Recommender for PearsonCorrelationSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("PearsonCorrelationSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for SpearmanCorrelationSimilarity and GenericItemBasedRecommender" do
-        JrubyMahout::Recommender.new("SpearmanCorrelationSimilarity", nil, "GenericItemBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+        it "should return an instance of JrubyMahout::Recommender for EuclideanDistanceSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("EuclideanDistanceSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for LogLikelihoodSimilarity and GenericItemBasedRecommender" do
-        JrubyMahout::Recommender.new("LogLikelihoodSimilarity", nil, "GenericItemBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+        it "should return an instance of JrubyMahout::Recommender for SpearmanCorrelationSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("SpearmanCorrelationSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for TanimotoCoefficientSimilarity and GenericItemBasedRecommender" do
-        JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", nil, "GenericItemBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+        it "should return an instance of JrubyMahout::Recommender for LogLikelihoodSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("LogLikelihoodSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for GenericItemSimilarity and GenericItemBasedRecommender" do
-        JrubyMahout::Recommender.new("GenericItemSimilarity", nil, "GenericItemBasedRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
-      end
+        it "should return an instance of JrubyMahout::Recommender for TanimotoCoefficientSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("TanimotoCoefficientSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
 
-      it "should return an instance of JrubyMahout::Recommender for SlopeOneRecommender" do
-        JrubyMahout::Recommender.new(nil, nil, "SlopeOneRecommender", false).should
-        be_an_instance_of JrubyMahout::Recommender
+        it "should return an instance of JrubyMahout::Recommender for GenericItemSimilarity and GenericItemBasedRecommender" do
+          JrubyMahout::Recommender.new("GenericItemSimilarity", nil, "GenericItemBasedRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
+
+        it "should return an instance of JrubyMahout::Recommender for SlopeOneRecommender" do
+          JrubyMahout::Recommender.new(nil, nil, "SlopeOneRecommender", false).should
+          be_an_instance_of JrubyMahout::Recommender
+        end
       end
     end
   end
