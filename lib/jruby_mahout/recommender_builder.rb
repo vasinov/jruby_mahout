@@ -49,7 +49,10 @@ module JrubyMahout
         end
 
         unless @neighborhood_size.nil?
-          neighborhood = NearestNUserNeighborhood.new(Integer(@neighborhood_size), similarity, data_model)
+          if @neighborhood_size > 1
+            neighborhood = NearestNUserNeighborhood.new(Integer(@neighborhood_size), similarity, data_model)
+          elsif @neighborhood_size >= 1 and @neighborhood_size <=1
+            neighborhood = ThresholdUserNeighborhood.new(Float(@neighborhood_size), similarity, data_model)
         end
 
         case @recommender_name
