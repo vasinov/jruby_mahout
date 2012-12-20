@@ -1,29 +1,35 @@
-# Jruby Mahout
-Jruby Mahout is a gem that unleashes the power of Apache Mahout in the world of Jruby. Mahout is a superior machine learning library written in Java. It deals with recommendations, clustering and classification machine learning problems at scale. Until now it was difficult to use it in Ruby projects. You'd have to implement Java interfaces in Jruby yourself, which is not quick especially if you just started exploring the world of machine learning.
+# JRuby Mahout
+Jruby Mahout is a gem that unleashes the power of Apache Mahout in the world of JRuby. Mahout is a superior machine learning library written in Java. It deals with recommendations, clustering and classification machine learning problems at scale. Until now it was difficult to use it in Ruby projects. You'd have to implement Java interfaces in JRuby yourself, which is not quick especially if you just started exploring the world of machine learning.
 
-The goal of this library is to make machine learning at scale in Jruby projects simple.
+The goal of this library is to make machine learning at scale in JRuby projects simple.
 
 ## Quick Overview
-This is an early version of a Jruby gem that only supports Mahout recommendations. It also includes a simple Postgres manager that can be used to manage appropriate recommendations tables. Unfortunately it's impossible to use ActiveRecord (AR) with Mahout, because AR at a mach higher level and creates a lot of overhead that is critical when dealing with millions of records in real time.
+This is an early version of a JRuby gem that only supports Mahout recommendations. It also includes a simple Postgres manager that can be used to manage appropriate recommendations tables. Unfortunately it's impossible to use ActiveRecord (AR) with Mahout, because AR operates at a much higher level and creates a lot of overhead that is critical when dealing with millions of records in real time.
 
 ## Get Mahout
-First of all you need to download Mahout library from one of the [mirrors](http://www.apache.org/dyn/closer.cgi/mahout/). Jruby Mahout only supports Mahout 0.7 at this point.
+First of all you need to download the Mahout library from one of the [mirrors](http://www.apache.org/dyn/closer.cgi/mahout/). Jruby Mahout only supports Mahout 0.7 at this point.
 
 ## Get Postgres JDBC Adapter
-If you wish to work with a database for recommendations, you'll have to install [JDBC 4 driver for Postgres 9.0 and higher](http://jdbc.postgresql.org/download.html). Another option is to use file-based recommendation.
+If you wish to work with a database for recommendations, you'll have to install the [JDBC driver for Postgres](http://jdbc.postgresql.org/download.html). Another option is to use file-based recommendations.
 
 ## Installation
-### 1. Set environment variable MAHOUT_DIR to point at your Mahout installation.
+### 1. Set the environment variable MAHOUT_DIR to point at your Mahout installation.
 ### 2. Add the gem to your `Gemfile`
 ```ruby
 platform :jruby do
   gem "jruby_mahout"
 end
 ```
-And run `bundle install`.
+### 3. Run `bundle install`.
 
 ## How to Use?
 I am planning to add more examples covering Jruby Mahout use cases to [this repo](https://github.com/vasinov/jruby_mahout-examples) soon.
+
+First, define the `MAHOUT_DIR` environmental variable for your Mahout installation. For example:
+
+```
+export MAHOUT_DIR=/bin/mahout
+```
 
 The easiest way to start working with Jruby Mahout recommendations is to initialize a recommender:
 ```ruby
@@ -31,7 +37,7 @@ require 'jruby_mahout'
 recommender = JrubyMahout::Recommender.new("PearsonCorrelationSimilarity", 5, "GenericUserBasedRecommender", false)
 ```
 
-Setup a data model:
+Set up a data model:
 ```ruby
 recommender.data_model = JrubyMahout::DataModel.new("file", { :file_path => "recommender_data.csv" }).data_model
 ```
@@ -48,7 +54,7 @@ puts recommender.evaluate(0.7, 0.3)
 
 The closer the score is to zero—the better.
 
-I realize that it's a very sparse introduction into Jruby Mahout. I am working on the tutorial and better documentation that should cover this gem more in depth. Stay tuned at [my blog](http://www.vasinov.com/blog).
+I realize that it's a very sparse introduction to Jruby Mahout. I am working on the tutorial and better documentation that should cover this gem more in depth. Stay tuned at [my blog](http://www.vasinov.com/blog).
 
 ## Development Plans
 There are several things that should be supported by this gem, before it can be used in production. Some of them are:
