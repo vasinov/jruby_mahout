@@ -44,19 +44,27 @@ module JrubyMahout
       end
     end
 
-    def upsert_record(record, name)
+    def upsert_record(table_name, record)
       begin
-        @statement.execute("UPDATE #{name} SET user_id=#{record[:user_id]}, item_id=#{record[:item_id]}, rating=#{record[:rating]} WHERE user_id=#{record[:user_id]} AND item_id=#{record[:item_id]};")
-        @statement.execute("INSERT INTO #{name} (user_id, item_id, rating) SELECT #{record[:user_id]}, #{record[:item_id]}, #{record[:rating]} WHERE NOT EXISTS (SELECT 1 FROM #{name} WHERE user_id=#{record[:user_id]} AND item_id=#{record[:item_id]});")
+        @statement.execute("UPDATE #{table_name} SET user_id=#{record[:user_id]}, item_id=#{record[:item_id]}, rating=#{record[:rating]} WHERE user_id=#{record[:user_id]} AND item_id=#{record[:item_id]};")
+        @statement.execute("INSERT INTO #{table_name} (user_id, item_id, rating) SELECT #{record[:user_id]}, #{record[:item_id]}, #{record[:rating]} WHERE NOT EXISTS (SELECT 1 FROM #{table_name} WHERE user_id=#{record[:user_id]} AND item_id=#{record[:item_id]});")
       rescue java.sql.SQLException => e
         puts e
       end
     end
 
-    def create_table(name)
+    def delete_record(table_name, record)
+      begin
+        @statement.execute("DELETE FROM #{table_name} WHERE user_id=#{record[:user_id]} AND item_id=#{record[:item_id]};")
+      rescue java.sql.SQLException => e
+        puts e
+      end
+    end
+
+    def create_table(table_name)
       begin
         @statement.executeUpdate("
-          CREATE TABLE #{name} (
+          CREATE TABLE #{table_name} (
             user_id BIGINT NOT NULL,
             item_id BIGINT NOT NULL,
             rating int NOT NULL,
@@ -64,18 +72,18 @@ module JrubyMahout
             PRIMARY KEY (user_id, item_id)
           );
         ")
-        @statement.executeUpdate("CREATE INDEX #{name}_user_id_index ON #{name} (user_id);")
-        @statement.executeUpdate("CREATE INDEX #{name}_item_id_index ON #{name} (item_id);")
+        @statement.executeUpdate("CREATE INDEX #{table_name}_user_id_index ON #{table_name} (user_id);")
+        @statement.executeUpdate("CREATE INDEX #{table_name}_item_id_index ON #{table_name} (item_id);")
       rescue java.sql.SQLException => e
         puts e
       end
     end
 
-    def delete_table(name)
+    def delete_table(table_name)
       begin
-        @statement.executeUpdate("DROP INDEX IF EXISTS #{name}_user_id_index;")
-        @statement.executeUpdate("DROP INDEX IF EXISTS #{name}_item_id_index;")
-        @statement.executeUpdate("DROP TABLE IF EXISTS #{name};")
+        @statement.executeUpdate("DROP INDEX IF EXISTS #{table_name}_user_id_index;")
+        @statement.executeUpdate("DROP INDEX IF EXISTS #{table_name}_item_id_index;")
+        @statement.executeUpdate("DROP TABLE IF EXISTS #{table_name};")
       rescue java.sql.SQLException => e
         puts e
       end
