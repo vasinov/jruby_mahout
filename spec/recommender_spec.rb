@@ -381,4 +381,52 @@ describe JrubyMahout::Recommender do
       end
     end
   end
+
+  # TODO: cover all cases
+  describe ".similar_users" do
+    context "with valid arguments" do
+      it "should return an array of users" do
+        recommender = JrubyMahout::Recommender.new("SpearmanCorrelationSimilarity", 5, "GenericUserBasedRecommender", false)
+        recommender.data_model = JrubyMahout::DataModel.new("file", { :file_path => "spec/recommender_data.csv" }).data_model
+
+        recommender.similar_users(1, 10, nil).should be_an_instance_of Array
+      end
+    end
+  end
+
+  # TODO: cover all cases
+  describe ".similar_items" do
+    context "with valid arguments" do
+      it "should return an array of items" do
+        recommender = JrubyMahout::Recommender.new("GenericItemSimilarity", nil, "GenericItemBasedRecommender", false)
+        recommender.data_model = JrubyMahout::DataModel.new("file", { :file_path => "spec/recommender_data.csv" }).data_model
+
+        recommender.similar_items(4, 10, nil).should be_an_instance_of Array
+      end
+    end
+  end
+
+  # TODO: cover all cases
+  describe ".recommended_because" do
+    context "with valid arguments" do
+      it "should return an array of items" do
+        recommender = JrubyMahout::Recommender.new("PearsonCorrelationSimilarity", nil, "GenericItemBasedRecommender", false)
+        recommender.data_model = JrubyMahout::DataModel.new("file", { :file_path => "spec/recommender_data.csv" }).data_model
+
+        recommender.recommended_because(1, 138, 5).should be_an_instance_of Array
+      end
+    end
+  end
+
+  # TODO: cover all cases
+  describe ".estimate_preference" do
+    context "with valid arguments" do
+      it "should return afloat with an estimate" do
+        recommender = JrubyMahout::Recommender.new("PearsonCorrelationSimilarity", nil, "GenericItemBasedRecommender", false)
+        recommender.data_model = JrubyMahout::DataModel.new("file", { :file_path => "spec/recommender_data.csv" }).data_model
+
+        recommender.estimate_preference(1, 138).should be_an_instance_of Float
+      end
+    end
+  end
 end

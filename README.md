@@ -10,7 +10,7 @@ This is an early version of a Jruby gem that only supports Mahout recommendation
 First of all you need to download Mahout library from one of the [mirrors](http://www.apache.org/dyn/closer.cgi/mahout/). Jruby Mahout only supports Mahout 0.7 at this point.
 
 ## Get Postgres JDBC Adapter
-If you wish to work with a database for recommendations, you'll have to install [JDBC driver for Postgres](http://jdbc.postgresql.org/download.html). Another option is to use file-based recommendation.
+If you wish to work with a database for recommendations, you'll have to install [JDBC 4 driver for Postgres 9.0 and higher](http://jdbc.postgresql.org/download.html). Another option is to use file-based recommendation.
 
 ## Installation
 ### 1. Set environment variable MAHOUT_DIR to point at your Mahout installation.

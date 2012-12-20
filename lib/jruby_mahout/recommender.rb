@@ -34,18 +34,18 @@ module JrubyMahout
     end
 
     def similar_items(item_id, number_of_items, rescorer)
-      if @recommender.nil? or @recommender_name == "GenericItemBasedRecommender"
-        nil
-      else
-        @recommender.mostSimilarItems(item_id, number_of_items, rescorer)
-      end
-    end
-
-    def similar_users(user_id, number_of_items, rescorer)
       if @recommender.nil? or @recommender_name == "GenericUserBasedRecommender"
         nil
       else
-        @recommender.mostSimilarUserIDs(user_id, number_of_items, rescorer)
+        to_array(@recommender.mostSimilarItems(item_id, number_of_items, rescorer))
+      end
+    end
+
+    def similar_users(user_id, number_of_users, rescorer)
+      if @recommender.nil? or @recommender_name == "GenericItemBasedRecommender"
+        nil
+      else
+        to_array(@recommender.mostSimilarUserIDs(user_id, number_of_users, rescorer))
       end
     end
 
@@ -58,10 +58,10 @@ module JrubyMahout
     end
 
     def recommended_because(user_id, item_id, number_of_items)
-      if @recommender.nil? or @recommender_name == "GenericItemBasedRecommender"
+      if @recommender.nil? or @recommender_name == "GenericUserBasedRecommender"
         nil
       else
-        @recommender.recommendedBecause(user_id, item_id, number_of_items)
+        to_array(@recommender.recommendedBecause(user_id, item_id, number_of_items))
       end
     end
 
@@ -73,6 +73,16 @@ module JrubyMahout
       end
 
       recommendations_array
+    end
+
+    private
+    def to_array(things)
+      things_array = []
+      things.each do |thing_id|
+        things_array << thing_id
+      end
+
+      things_array
     end
   end
 end
