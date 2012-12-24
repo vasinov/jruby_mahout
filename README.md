@@ -22,7 +22,7 @@ end
 ```
 ### 3. Run `bundle install`.
 
-## How to Use?
+## Brief Introduction
 I am planning to add more examples covering Jruby Mahout use cases to [this repo](https://github.com/vasinov/jruby_mahout-examples) soon.
 
 First, define the `MAHOUT_DIR` environmental variable for your Mahout installation. For example:
@@ -54,7 +54,9 @@ puts recommender.evaluate(0.7, 0.3)
 
 The closer the score is to zero—the better.
 
-I realize that it's a very sparse introduction to Jruby Mahout. I am working on the tutorial and better documentation that should cover this gem more in depth. Stay tuned at [my blog](http://www.vasinov.com/blog).
+## Advanced
+I am working on a series of articles on how to utilize JRuby Mahout in the real world projects. This is the first one in the series:
+- [Machine Learning with Ruby, Part One](http://www.vasinov.com/blog/machine-learning-with-ruby-part-one)
 
 ## Development Plans
 There are several things that should be supported by this gem, before it can be used in production. Some of them are:
