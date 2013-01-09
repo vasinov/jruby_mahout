@@ -1,6 +1,6 @@
 module JrubyMahout
   class Recommender
-    attr_accessor :is_weighted, :neighborhood_size, :similarity_name, :recommender_name, :data_model
+    attr_accessor :is_weighted, :neighborhood_size, :similarity_name, :recommender_name, :data_model, :recommender
 
     def initialize(similarity_name, neighborhood_size, recommender_name, is_weighted)
       @is_weighted = is_weighted
@@ -24,7 +24,14 @@ module JrubyMahout
       if @recommender.nil?
         nil
       else
-        recommendations_to_array(@recommender.recommend(user_id, number_of_items, rescorer))
+        recommendations = @recommender.recommend(user_id, number_of_items, rescorer)
+        recommendations_array = []
+
+        recommendations.each do |recommendation|
+          recommendations_array << [recommendation.getItemID, recommendation.getValue.round(5)]
+        end
+
+        recommendations_array
       end
     end
 
@@ -37,7 +44,14 @@ module JrubyMahout
       if @recommender.nil? or @recommender_name == "GenericUserBasedRecommender"
         nil
       else
-        to_array(@recommender.mostSimilarItems(item_id, number_of_items, rescorer))
+        similarities = @recommender.mostSimilarItems(item_id, number_of_items, rescorer)
+        similarities_array = []
+
+        similarities.each do |similarity|
+          similarities_array << similarity.getItemID
+        end
+
+        similarities_array
       end
     end
 
@@ -63,16 +77,6 @@ module JrubyMahout
       else
         to_array(@recommender.recommendedBecause(user_id, item_id, number_of_items))
       end
-    end
-
-    private
-    def recommendations_to_array(recommendations)
-      recommendations_array = []
-      recommendations.each do |recommendation|
-        recommendations_array << [recommendation.getItemID, recommendation.getValue.round(5)]
-      end
-
-      recommendations_array
     end
 
     private
