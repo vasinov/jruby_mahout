@@ -17,7 +17,7 @@ module JrubyMahout
 
     def data_model=(data_model)
       @data_model = data_model
-      @recommender = @recommender_builder.buildRecommender(@data_model)
+      @recommender = @recommender_builder.build_recommender(@data_model)
     end
 
     def recommend(user_id, number_of_items, rescorer)

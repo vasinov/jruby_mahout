@@ -30,7 +30,7 @@ module JrubyMahout
 
     # buildRecommender(DataModel dataModel)
     # Builds a Recommender implementation to be evaluated, using the given DataModel.
-    def buildRecommender(data_model)
+    def build_recommender(data_model)
       begin
         case @similarity_name
           when "PearsonCorrelationSimilarity"
