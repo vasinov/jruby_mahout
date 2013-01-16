@@ -1,6 +1,6 @@
 module JrubyMahout
   class Recommender
-    attr_accessor :is_weighted, :neighborhood_size, :similarity_name, :recommender_name, :data_model, :recommender
+    attr_accessor :is_weighted, :neighborhood_size, :similarity_name, :recommender_name, :data_model, :recommender, :cache
 
     def initialize(similarity_name, neighborhood_size, recommender_name, is_weighted)
       @is_weighted = is_weighted
@@ -13,6 +13,7 @@ module JrubyMahout
                                                    @is_weighted)
       @data_model = nil
       @recommender = nil
+      @cache = false
     end
 
     def data_model=(data_model)
@@ -20,18 +21,30 @@ module JrubyMahout
       @recommender = @recommender_builder.build_recommender(@data_model)
     end
 
+    def cache=(val)
+      @cache = val unless !(@redis and [true, false].include? val)
+    end
+
     def recommend(user_id, number_of_items, rescorer)
       if @recommender.nil?
         nil
       else
-        recommendations = @recommender.recommend(user_id, number_of_items, rescorer)
-        recommendations_array = []
+        cached_recommendations = (@cache) ? $redis.get("generic_prefix-user_id:#{user_id}") : nil
 
-        recommendations.each do |recommendation|
-          recommendations_array << [recommendation.getItemID, recommendation.getValue.round(5)]
+        if cached_recommendations
+          JSON.parse(cached_recommendations)
+        else
+          recommendations = @recommender.recommend(user_id, number_of_items, rescorer)
+          recommendations_array = []
+
+          recommendations.each do |recommendation|
+            recommendations_array << [recommendation.getItemID, recommendation.getValue.round(5)]
+          end
+
+          $redis.set("generic_prefix-user_id:#{user_id}", recommendations_array.to_json) unless !@cache
+
+          recommendations_array
         end
-
-        recommendations_array
       end
     end
 
